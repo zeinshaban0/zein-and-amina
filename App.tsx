@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { 
-  ClipboardDocumentCheckIcon, 
-  MagnifyingGlassIcon, 
-  XMarkIcon,
-  HomeIcon,
-  DocumentTextIcon,
-  Cog6ToothIcon
-} from '@heroicons/react/24/outline';
+  ClipboardCheck, 
+  Search, 
+  X, 
+  Home, 
+  FileText, 
+  Settings,
+  Copy
+} from 'lucide-react';
 
 interface SectionDetail {
   label: string;
@@ -182,7 +183,7 @@ export default function App() {
             placeholder="البحث في أوراق الشيت..."
             className="w-full bg-white border border-slate-200 rounded-xl py-2 pr-9 pl-4 text-xs text-slate-700 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#107C68] shadow-sm"
           />
-          <MagnifyingGlassIcon className="w-4 h-4 text-slate-400 absolute right-3 top-2.5" />
+          <Search className="w-4 h-4 text-slate-400 absolute right-3 top-2.5" />
         </div>
 
         <p className="text-[11px] font-bold text-slate-700 pt-1">
@@ -225,7 +226,7 @@ export default function App() {
                         : 'bg-emerald-50 text-[#0D3B36] hover:bg-emerald-100'
                     }`}
                   >
-                    <ClipboardDocumentCheckIcon className="w-3.5 h-3.5" />
+                    <ClipboardCheck className="w-3.5 h-3.5" />
                     <span>
                       {copiedId === card.id 
                         ? '✓ تم النسخ' 
@@ -241,12 +242,11 @@ export default function App() {
         </div>
       </main>
 
-      {/* نافذة منبثقة لعرض وقراءة تفاصيل كل مربع عند النقر عليه (Modal) */}
+      {/* نافذة التفاصيل المنبثقة (Modal) */}
       {selectedCard && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-end sm:items-center justify-center p-0 sm:p-4">
-          <div className="bg-white w-full max-w-md max-h-[85vh] rounded-t-3xl sm:rounded-2xl flex flex-col shadow-2xl overflow-hidden animate-in fade-in">
+          <div className="bg-white w-full max-w-md max-h-[85vh] rounded-t-3xl sm:rounded-2xl flex flex-col shadow-2xl overflow-hidden">
             
-            {/* رأس النافذة */}
             <div className="px-4 py-3 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <span className="text-xl">{selectedCard.icon}</span>
@@ -259,11 +259,10 @@ export default function App() {
                 onClick={() => setSelectedCard(null)}
                 className="w-7 h-7 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center hover:bg-slate-300"
               >
-                <XMarkIcon className="w-4 h-4" />
+                <X className="w-4 h-4" />
               </button>
             </div>
 
-            {/* محتوى النافذة */}
             <div className="p-4 overflow-y-auto space-y-3.5 flex-1 text-right">
               {selectedCard.sections.map((sec, idx) => (
                 <div key={idx} className="bg-slate-50 border border-slate-200 rounded-xl p-3 space-y-1.5">
@@ -271,8 +270,9 @@ export default function App() {
                     <span className="text-[11px] font-bold text-[#0D3B36]">{sec.label}</span>
                     <button
                       onClick={(e) => handleCopySnippet(sec.en, e)}
-                      className="text-[10px] bg-white border border-slate-300 px-2 py-0.5 rounded-lg text-slate-700 hover:bg-emerald-50 hover:text-[#107C68]"
+                      className="text-[10px] bg-white border border-slate-300 px-2 py-0.5 rounded-lg text-slate-700 hover:bg-emerald-50 hover:text-[#107C68] flex items-center gap-1"
                     >
+                      <Copy className="w-3 h-3" />
                       نسخ
                     </button>
                   </div>
@@ -286,7 +286,6 @@ export default function App() {
               ))}
             </div>
 
-            {/* زر سفلي للنسخ بالكامل والإغلاق */}
             <div className="p-3 bg-white border-t border-slate-100 flex gap-2">
               <button
                 onClick={() => handleCopy(selectedCard)}
@@ -299,19 +298,19 @@ export default function App() {
         </div>
       )}
 
-      {/* الشريط السفلي الثابت (Navigation Bar) */}
+      {/* الشريط السفلي */}
       <footer className="fixed bottom-0 left-0 right-0 z-20 bg-white/95 backdrop-blur border-t border-slate-200 py-2 shadow-lg">
         <div className="max-w-md mx-auto grid grid-cols-3 text-center">
           <button className="flex flex-col items-center text-[#107C68]">
-            <HomeIcon className="w-5 h-5" />
+            <Home className="w-5 h-5" />
             <span className="text-[10px] font-bold mt-0.5">الرئيسية</span>
           </button>
           <button className="flex flex-col items-center text-slate-400 hover:text-slate-700">
-            <DocumentTextIcon className="w-5 h-5" />
+            <FileText className="w-5 h-5" />
             <span className="text-[10px] font-bold mt-0.5">الشيت</span>
           </button>
           <button className="flex flex-col items-center text-slate-400 hover:text-slate-700">
-            <Cog6ToothIcon className="w-5 h-5" />
+            <Settings className="w-5 h-5" />
             <span className="text-[10px] font-bold mt-0.5">الإعدادات</span>
           </button>
         </div>
